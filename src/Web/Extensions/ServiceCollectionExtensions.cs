@@ -3,6 +3,7 @@ using BlazorAdmin;
 using BlazorAdmin.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.DotNet.Scaffolding.Shared;
 using Microsoft.EntityFrameworkCore;
 using Fiamma.Infrastructure;
@@ -10,6 +11,7 @@ using Fiamma.Infrastructure.Data;
 using Fiamma.Infrastructure.Identity;
 using Fiamma.Web.Configuration;
 using Fiamma.Web.HealthChecks;
+using Yarp.ReverseProxy.Configuration;
 
 namespace Fiamma.Web.Extensions;
 
@@ -17,7 +19,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddDatabaseContexts(this IServiceCollection services, IWebHostEnvironment environment, ConfigurationManager configuration)
     {
-        if (environment.IsDevelopment() || environment.IsDocker())
+        if (ShouldUseLocalDataStores(environment, configuration))
         {
             // Configure SQL Server (local)
             services.ConfigureLocalDatabaseContexts(configuration);
@@ -41,6 +43,21 @@ public static class ServiceCollectionExtensions
                                 .AddInterceptors(provider.GetRequiredService<DbCallCountingInterceptor>());
             });
         }
+    }
+
+    public static void AddRenderForwardedHeaders(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        if (!string.Equals(configuration["RENDER"], "true", StringComparison.OrdinalIgnoreCase))
+        {
+            return;
+        }
+
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            options.KnownIPNetworks.Clear();
+            options.KnownProxies.Clear();
+        });
     }
 
     public static void AddCookieAuthentication(this IServiceCollection services)
@@ -79,6 +96,55 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ToastService>();
         services.AddScoped<HttpService>();
         services.AddBlazorServices();
+    }
+
+    public static void AddPublicApiReverseProxy(this IServiceCollection services, ConfigurationManager configuration)
+    {
+        var configSection = configuration.GetRequiredSection(BaseUrlConfiguration.CONFIG_NAME);
+        var baseUrlConfiguration = configSection.Get<BaseUrlConfiguration>()
+            ?? throw new InvalidOperationException("Missing baseUrls configuration.");
+
+        if (string.IsNullOrWhiteSpace(baseUrlConfiguration.ApiBase))
+        {
+            throw new InvalidOperationException("The baseUrls:apiBase setting is required.");
+        }
+
+        var apiBaseUri = new Uri(baseUrlConfiguration.ApiBase, UriKind.Absolute);
+        var destinationAddress = apiBaseUri.GetLeftPart(UriPartial.Authority);
+
+        var routes = new[]
+        {
+            new RouteConfig
+            {
+                RouteId = "publicapi",
+                ClusterId = "publicapi-cluster",
+                Match = new RouteMatch
+                {
+                    Path = "/api/{**catch-all}"
+                }
+            }
+        };
+
+        var clusters = new[]
+        {
+            new ClusterConfig
+            {
+                ClusterId = "publicapi-cluster",
+                Destinations = new Dictionary<string, DestinationConfig>(StringComparer.OrdinalIgnoreCase)
+                {
+                    ["publicapi"] = new() { Address = destinationAddress }
+                }
+            }
+        };
+
+        services.AddReverseProxy().LoadFromMemory(routes, clusters);
+    }
+
+    private static bool ShouldUseLocalDataStores(IWebHostEnvironment environment, ConfigurationManager configuration)
+    {
+        return environment.IsDevelopment()
+            || environment.IsDocker()
+            || string.Equals(configuration["RENDER"], "true", StringComparison.OrdinalIgnoreCase);
     }
 }
 

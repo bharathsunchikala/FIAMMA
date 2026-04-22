@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add service defaults & Aspire components.
 builder.AddAspireServiceDefaults();
 
+builder.Services.AddRenderForwardedHeaders(builder.Configuration);
 builder.Services.AddDatabaseContexts(builder.Environment, builder.Configuration);
 
 builder.Services.AddCookieSettings();
@@ -83,6 +84,7 @@ builder.Services.Configure<ServiceConfig>(config =>
 });
 
 builder.Services.AddBlazor(builder.Configuration);
+builder.Services.AddPublicApiReverseProxy(builder.Configuration);
 
 builder.Services.AddMetronome();
 builder.AddSeqEndpoint(connectionName: "seq");
@@ -94,6 +96,11 @@ var app = builder.Build();
 app.Logger.LogInformation("App created...");
 
 await app.SeedDatabaseAsync();
+
+if (string.Equals(app.Configuration["RENDER"], "true", StringComparison.OrdinalIgnoreCase))
+{
+    app.UseForwardedHeaders();
+}
 
 var catalogBaseUrl = builder.Configuration.GetValue(typeof(string), "CatalogBaseUrl") as string;
 if (!string.IsNullOrEmpty(catalogBaseUrl))
@@ -123,6 +130,7 @@ app.MapControllerRoute("default", "{controller:slugify=Home}/{action:slugify=Ind
 app.MapRazorPages();
 app.MapHealthChecks("home_page_health_check", new HealthCheckOptions { Predicate = check => check.Tags.Contains("homePageHealthCheck") });
 app.MapHealthChecks("api_health_check", new HealthCheckOptions { Predicate = check => check.Tags.Contains("apiHealthCheck") });
+app.MapReverseProxy();
 //endpoints.MapBlazorHub("/admin");
 app.MapFallbackToFile("index.html");
 

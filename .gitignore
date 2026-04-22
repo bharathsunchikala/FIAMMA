@@ -267,4 +267,5 @@ pub/
 .dotnet-home/
 .nuget/
 runlogs/
+tmp/
 *.err

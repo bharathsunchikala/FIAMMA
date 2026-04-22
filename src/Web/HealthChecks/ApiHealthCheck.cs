@@ -19,14 +19,21 @@ public class ApiHealthCheck : IHealthCheck
     {
         string myUrl = _baseUrlConfiguration.ApiBase + "catalog-items";
         var client = new HttpClient();
-        var response = await client.GetAsync(myUrl);
-        var pageContents = await response.Content.ReadAsStringAsync();
-        if (pageContents.Contains(".NET Bot Black Sweatshirt"))
-        {
-            return HealthCheckResult.Healthy("The check indicates a healthy result.");
-        }
 
-        return HealthCheckResult.Unhealthy("The check indicates an unhealthy result.");
+        try
+        {
+            var response = await client.GetAsync(myUrl, cancellationToken);
+            if (response.IsSuccessStatusCode)
+            {
+                return HealthCheckResult.Healthy("The API responded successfully.");
+            }
+
+            return HealthCheckResult.Unhealthy($"The API responded with status code {(int)response.StatusCode}.");
+        }
+        catch (Exception ex)
+        {
+            return HealthCheckResult.Unhealthy("The API health check request failed.", ex);
+        }
     }
 }
 
