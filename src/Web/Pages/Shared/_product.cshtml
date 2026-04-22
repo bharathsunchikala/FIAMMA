@@ -1,0 +1,51 @@
+﻿@model CatalogItemViewModel
+
+<form asp-page="/Basket/Index" method="post" class="product-form">
+    <img class="esh-catalog-thumbnail" src="@Model.PictureUri" />
+    <input class="esh-catalog-button" type="submit" value="[ ADD TO BASKET ]" />
+    <div class="esh-catalog-name">
+        <span>@Model.Name</span>
+    </div>
+    <div class="esh-catalog-price">
+        <span>₹@Model.Price.ToString("N0")</span>
+    </div>
+
+    @if (Model.Options.Any())
+    {
+        <div class="product-options">
+            @foreach (var group in Model.Options.GroupBy(o => o.Type))
+            {
+                <div class="option-group">
+                    <label class="option-label">@group.Key:</label>
+                    @foreach (var option in group)
+                    {
+                        <div class="option-item">
+                            <input type="radio"
+                                   name="option_@(group.Key)_@(Model.Id)"
+                                   value="@option.Value"
+                                   data-option-id="@option.Id"
+                                   data-additional-price="@option.AdditionalPrice"
+                                   data-option-type="@option.Type"
+                                   data-display-name="@option.DisplayName"
+                                   class="option-radio"
+                                   id="option_@(option.Id)" />
+                            <label for="option_@(option.Id)">
+                                @option.DisplayName
+                                @if (option.AdditionalPrice > 0)
+                                {
+                                    <span class="option-price">(+₹@option.AdditionalPrice.ToString("N0"))</span>
+                                }
+                            </label>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <input type="hidden" asp-for="@Model.Id" name="id" />
+    <input type="hidden" asp-for="@Model.Name" name="name" />
+    <input type="hidden" asp-for="@Model.PictureUri" name="pictureUri" />
+    <input type="hidden" asp-for="@Model.Price" name="price" />
+    <input type="hidden" name="selectedOptionsJson" class="selected-options-json" value="[]" />
+</form>

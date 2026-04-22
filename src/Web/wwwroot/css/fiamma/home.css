@@ -1,0 +1,574 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+.fiamma-home {
+    --fiamma-ink: #222028;
+    --fiamma-soft-ink: #5b5668;
+    --fiamma-accent: #b2552c;
+    --fiamma-accent-deep: #8f3f1e;
+    --fiamma-cream: #f8f2e9;
+    --fiamma-paper: #fffdfa;
+    --fiamma-stroke: #e4d7c8;
+    margin: 0 auto;
+    max-width: 1320px;
+    padding: 1.1rem 1rem 3rem;
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    color: var(--fiamma-ink);
+}
+
+.fiamma-home a {
+    text-decoration: none;
+}
+
+.fiamma-reveal {
+    opacity: 0;
+    transform: translateY(-28px);
+    transition: opacity 0.6s ease, transform 0.7s ease;
+}
+
+.fiamma-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fiamma-announcement {
+    background: #1f1b25;
+    border-radius: 999px;
+    color: #fff;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    padding: 0 1rem;
+}
+
+.fiamma-announcement-window {
+    height: 2.4rem;
+    overflow: hidden;
+}
+
+.fiamma-announcement-track {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.55s ease;
+}
+
+.fiamma-announcement-track p {
+    align-items: center;
+    display: flex;
+    font-size: 0.9rem;
+    font-weight: 600;
+    height: 2.4rem;
+    letter-spacing: 0.02em;
+    margin: 0;
+    justify-content: center;
+}
+
+.fiamma-nav {
+    align-items: center;
+    background: var(--fiamma-paper);
+    border: 1px solid var(--fiamma-stroke);
+    border-radius: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.9rem;
+}
+
+.fiamma-logo {
+    align-items: center;
+    display: inline-flex;
+    flex-shrink: 0;
+}
+
+.fiamma-logo-image {
+    background: transparent;
+    display: block;
+    height: 84px;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 270px;
+    mix-blend-mode: multiply;
+}
+
+.fiamma-logo--header .fiamma-logo-image {
+    height: 78px;
+    width: 248px;
+}
+
+.fiamma-logo--nav .fiamma-logo-image {
+    height: 70px;
+    width: 230px;
+}
+
+.fiamma-logo-mark {
+    align-items: center;
+    background: linear-gradient(150deg, #c36f44 0%, #8a3d20 100%);
+    border-radius: 999px;
+    color: #fff;
+    display: inline-flex;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    height: 2.15rem;
+    justify-content: center;
+    width: 2.15rem;
+}
+
+.fiamma-logo-text {
+    color: #2e2737;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.fiamma-nav-links {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.fiamma-nav-links a {
+    background: #f5eee4;
+    border: 1px solid #e8dac8;
+    border-radius: 999px;
+    color: #6b422d;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.45rem 0.9rem;
+    text-transform: uppercase;
+}
+
+.fiamma-basket-button {
+    background: linear-gradient(145deg, var(--fiamma-accent), var(--fiamma-accent-deep));
+    border-radius: 999px;
+    color: #fff !important;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 1rem;
+    text-transform: uppercase;
+}
+
+.fiamma-hero {
+    background: radial-gradient(circle at 10% 10%, #fff7ea 0%, #f7ebe2 45%, #efe0d1 100%);
+    border: 1px solid var(--fiamma-stroke);
+    border-radius: 20px;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    padding: 1.3rem;
+}
+
+.fiamma-hero-copy {
+    align-self: center;
+}
+
+.fiamma-eyebrow {
+    color: #7e5a44;
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    margin: 0 0 0.4rem;
+    text-transform: uppercase;
+}
+
+.fiamma-hero h1 {
+    color: #2d2431;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.02;
+    margin-bottom: 0.65rem;
+}
+
+.fiamma-subtitle {
+    color: var(--fiamma-soft-ink);
+    margin-bottom: 1rem;
+    max-width: 45ch;
+}
+
+.fiamma-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.fiamma-hero-actions a {
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1rem;
+    text-transform: uppercase;
+}
+
+.fiamma-hero-actions a:first-child {
+    background: #1f1b25;
+    color: #fff;
+}
+
+.fiamma-hero-actions a:last-child {
+    background: #fff;
+    border: 1px solid #cab8a4;
+    color: #3f323f;
+}
+
+.fiamma-collections,
+.fiamma-search-panel,
+.fiamma-manage-products,
+.fiamma-products,
+.fiamma-status-message {
+    background: var(--fiamma-paper);
+    border: 1px solid var(--fiamma-stroke);
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.fiamma-collections header,
+.fiamma-products-header {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 1rem;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+
+.fiamma-collections h2,
+.fiamma-search-panel h2,
+.fiamma-manage-products h2,
+.fiamma-products-header h2 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.fiamma-collections p,
+.fiamma-products-header p {
+    color: var(--fiamma-soft-ink);
+    margin: 0;
+}
+
+.fiamma-collection-grid {
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.fiamma-collection-card {
+    background: linear-gradient(150deg, #f7ecdf, #f1e2d5);
+    border: 1px solid #e4d4c3;
+    border-radius: 12px;
+    color: #3a2b36;
+    display: grid;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    gap: 0.2rem;
+    min-height: 86px;
+    padding: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.fiamma-collection-card strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.fiamma-collection-card span {
+    color: #a27558;
+    font-family: "Manrope", "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+.fiamma-collection-card:hover {
+    transform: translateY(-2px);
+}
+
+.fiamma-collection-card--tshirts,
+.fiamma-collection-card--bottoms,
+.fiamma-collection-card--jackets {
+    align-content: end;
+    color: #fff;
+    min-height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.fiamma-collection-card--tshirts::after,
+.fiamma-collection-card--bottoms::after,
+.fiamma-collection-card--jackets::after {
+    background: linear-gradient(0deg, rgba(16, 14, 21, 0.9) 0%, rgba(16, 14, 21, 0.5) 42%, rgba(16, 14, 21, 0.1) 100%);
+    content: "";
+    inset: 0;
+    position: absolute;
+}
+
+.fiamma-collection-image {
+    object-fit: cover;
+    width: 100%;
+}
+
+.fiamma-collection-mosaic {
+    display: grid;
+    gap: 0.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    inset: 0;
+    position: absolute;
+    z-index: 0;
+}
+
+.fiamma-collection-mosaic img {
+    height: 100%;
+    min-height: 78px;
+}
+
+.fiamma-collection-mosaic img:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    min-height: 160px;
+}
+
+.fiamma-collection-card--tshirts span,
+.fiamma-collection-card--tshirts strong,
+.fiamma-collection-card--bottoms span,
+.fiamma-collection-card--bottoms strong,
+.fiamma-collection-card--jackets span,
+.fiamma-collection-card--jackets strong {
+    color: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.fiamma-collection-card--tshirts span,
+.fiamma-collection-card--bottoms span,
+.fiamma-collection-card--jackets span {
+    font-size: 0.68rem;
+}
+
+.fiamma-search-panel h2 {
+    margin-bottom: 0.7rem;
+}
+
+.fiamma-search {
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: 1.6fr 1fr 1fr auto;
+}
+
+.fiamma-search input,
+.fiamma-search select,
+.fiamma-search button,
+.fiamma-manage-form input,
+.fiamma-manage-form select,
+.fiamma-manage-form button {
+    border: 1px solid #d8c8b7;
+    border-radius: 10px;
+    min-height: 2.65rem;
+    padding: 0.56rem 0.75rem;
+}
+
+.fiamma-search button,
+.fiamma-manage-form button {
+    background: var(--fiamma-accent);
+    color: #fff;
+    font-weight: 800;
+}
+
+.fiamma-status-message {
+    border-color: #cce6d2;
+    color: #246e38;
+    font-weight: 600;
+}
+
+.fiamma-manage-products p {
+    color: var(--fiamma-soft-ink);
+    margin-bottom: 0.55rem;
+}
+
+.fiamma-manage-form {
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fiamma-manage-form button {
+    grid-column: span 2;
+}
+
+.fiamma-rail-controls {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: flex-end;
+    margin-bottom: 0.55rem;
+}
+
+.fiamma-rail-controls button {
+    background: #302737;
+    border: 0;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    height: 2rem;
+    width: 2rem;
+}
+
+.fiamma-product-scroller {
+    display: flex;
+    gap: 0.9rem;
+    overflow-x: auto;
+    padding-bottom: 0.3rem;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.fiamma-product-slide {
+    flex: 0 0 min(350px, 80vw);
+    scroll-snap-align: start;
+}
+
+.fiamma-product-slide .product-form {
+    background: #fff;
+    border: 1px solid #e5d7c8;
+    border-radius: 12px;
+    min-height: 100%;
+    padding: 0.8rem;
+}
+
+.fiamma-product-slide .esh-catalog-thumbnail {
+    border-radius: 10px;
+    height: 330px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.fiamma-product-slide .esh-catalog-button {
+    background: #2b2230;
+    border-radius: 9px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    height: 2.5rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.7rem;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.fiamma-product-slide .esh-catalog-name {
+    color: #322837;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 0.55rem;
+    text-transform: none;
+}
+
+.fiamma-product-slide .esh-catalog-price {
+    color: #9b4a23;
+    font-size: 1.65rem;
+    font-weight: 800;
+}
+
+.product-options {
+    border-top: 1px dashed #e8d6c3;
+    font-size: 0.82rem;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+}
+
+.option-group {
+    margin-bottom: 0.4rem;
+}
+
+.option-label {
+    color: #665165;
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+}
+
+.option-item {
+    display: inline-block;
+    margin-right: 0.45rem;
+}
+
+.option-item label {
+    cursor: pointer;
+}
+
+.option-price {
+    color: #7e614e;
+    font-size: 0.86em;
+}
+
+.fiamma-no-results {
+    background: linear-gradient(150deg, #fbf5ed, #f7ebdd);
+    border: 1px dashed #d7bba0;
+    border-radius: 12px;
+    color: #70533e;
+    padding: 1.1rem;
+    text-align: center;
+}
+
+@media (max-width: 1080px) {
+    .fiamma-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .fiamma-collection-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 860px) {
+    .fiamma-search {
+        grid-template-columns: 1fr;
+    }
+
+    .fiamma-manage-form {
+        grid-template-columns: 1fr;
+    }
+
+    .fiamma-manage-form button {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .fiamma-home {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+
+    .fiamma-announcement-track p {
+        font-size: 0.76rem;
+    }
+
+    .fiamma-nav-links a {
+        font-size: 0.74rem;
+    }
+
+    .fiamma-logo--header .fiamma-logo-image,
+    .fiamma-logo--nav .fiamma-logo-image {
+        height: 56px;
+        width: 180px;
+    }
+
+    .fiamma-collection-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

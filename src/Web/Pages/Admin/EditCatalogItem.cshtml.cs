@@ -1,0 +1,37 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Fiamma.Web.Interfaces;
+using Fiamma.Web.ViewModels;
+
+namespace Fiamma.Web.Pages.Admin;
+
+[Authorize(Roles = "Administrators")]
+public class EditCatalogItemModel : PageModel
+{
+    private readonly ICatalogItemViewModelService _catalogItemViewModelService;
+
+    public EditCatalogItemModel(ICatalogItemViewModelService catalogItemViewModelService)
+    {
+        _catalogItemViewModelService = catalogItemViewModelService;
+    }
+
+    [BindProperty]
+    public CatalogItemViewModel CatalogModel { get; set; } = new CatalogItemViewModel();
+
+    public void OnGet(CatalogItemViewModel catalogModel)
+    {
+        CatalogModel = catalogModel;
+    }
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        if (ModelState.IsValid)
+        {
+            await _catalogItemViewModelService.UpdateCatalogItem(CatalogModel);
+        }
+
+        return RedirectToPage("/Admin/Index");
+    }
+}
+
