@@ -87,7 +87,21 @@ builder.Services.AddBlazor(builder.Configuration);
 builder.Services.AddPublicApiReverseProxy(builder.Configuration);
 
 builder.Services.AddMetronome();
-builder.AddSeqEndpoint(connectionName: "seq");
+var seqServerUrl = builder.Configuration["Seq:ServerUrl"]
+    ?? builder.Configuration["Aspire:Seq:ServerUrl"];
+
+if (builder.Environment.IsDevelopment())
+{
+    seqServerUrl ??= "http://localhost:5341";
+}
+
+if (!string.IsNullOrWhiteSpace(seqServerUrl))
+{
+    builder.AddSeqEndpoint(connectionName: "seq", options =>
+    {
+        options.ServerUrl = seqServerUrl;
+    });
+}
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
